@@ -1007,6 +1007,20 @@ impl Window {
         self.window.maybe_wait_on_main(|w| w.enabled_buttons())
     }
 
+    /// Sets the hidden window buttons.
+    ///
+    /// ## Platform-specific
+    /// - **Wayland / X11 / Orbital / Windows:** Not implemented. Always returns [`WindowButtons::all`].
+    /// - **Web / iOS / Android:** Unsupported. Always returns [`WindowButtons::all`].
+    pub fn set_hidden_buttons(&self, hidden: bool) {
+        self.window
+            .maybe_queue_on_main(move |w| w.set_hidden_buttons(hidden))
+    }
+
+    pub fn is_buttons_hidden(&self) -> bool{
+        self.window.maybe_wait_on_main(|w| w.is_buttons_hidden())
+    }
+
     /// Sets the window to minimized or back
     ///
     /// ## Platform-specific

@@ -52,6 +52,9 @@ extern_methods!(
 
         #[method_id(window)]
         pub fn window(&self) -> Option<Id<NSWindow>>;
+
+        #[method(isHidden)]
+        pub fn isHidden(&self) -> bool;
     }
 
     unsafe impl NSView {
