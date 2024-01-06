@@ -781,6 +781,24 @@ impl WinitWindow {
         self.isResizable()
     }
 
+    pub fn set_hidden_buttons(&self, hidden: bool) {
+        for titlebar_button in &[
+            #[allow(deprecated)]
+            NSWindowButton::FullScreen,
+            NSWindowButton::Miniaturize,
+            NSWindowButton::Close,
+            NSWindowButton::Zoom,
+        ] {
+            if let Some(button) = self.standardWindowButton(*titlebar_button) {
+                button.setHidden(hidden);
+            }
+        }
+    }
+
+    pub fn is_buttons_hidden(&self) -> bool {
+        return self.standardWindowButton(NSWindowButton::Close).is_some_and(|b| b.isHidden());
+    }
+
     #[inline]
     pub fn set_enabled_buttons(&self, buttons: WindowButtons) {
         let mut mask = self.styleMask();
